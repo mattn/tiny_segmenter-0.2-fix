@@ -176,3 +176,7 @@ TinySegmenter.prototype.segment = function(input) {
 
   return result;
 }
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = TinySegmenter;
+}
