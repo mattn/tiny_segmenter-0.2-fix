@@ -160,7 +160,9 @@ TinySegmenter.prototype.segment = function(input) {
     score += this.ts_(this.TQ3__[p3 + c1 + c2 + c3]);
     score += this.ts_(this.TQ4__[p3 + c2 + c3 + c4]);
     let p = "O";
-    if (score > 0) {
+    if ((c3 == "N" && c4 == "N") || (c3 == "A" && c4 == "A")) {
+      // keep as "O"
+    } else if (score > 0) {
       result.push(word);
       word = "";
       p = "B";
