@@ -4,7 +4,7 @@
 // For details, see http://chasen.org/~taku/software/TinySegmenter/LICENCE.txt
 
 function TinySegmenter() {
-  var patterns = {
+  const patterns = {
     "[一二三四五六七八九十百千万億兆]":"M",
     "[一-龠々〆ヵヶ]":"H",
     "[ぁ-ん]":"I",
@@ -13,8 +13,8 @@ function TinySegmenter() {
     "[0-9０-９]":"N"
   }
   this.chartype_ = [];
-  for (var i in patterns) {
-    var regexp = new RegExp;
+  for (const i in patterns) {
+    const regexp = new RegExp;
     regexp.compile(i)
     this.chartype_.push([regexp, patterns[i]]);
   }
@@ -67,7 +67,7 @@ function TinySegmenter() {
 }
 
 TinySegmenter.prototype.ctype_ = function(str) {
-  for (var i in this.chartype_) {
+  for (const i in this.chartype_) {
     if (str.match(this.chartype_[i][0])) {
       return this.chartype_[i][1];
     }
@@ -84,10 +84,10 @@ TinySegmenter.prototype.segment = function(input) {
   if (input == null || input == undefined || input == "") {
     return [];
   }
-  var result = [];
-  var seg = ["B3","B2","B1"];
-  var ctype = ["O","O","O"];
-  var o = input.split("");
+  const result = [];
+  const seg = ["B3","B2","B1"];
+  const ctype = ["O","O","O"];
+  const o = input.split("");
   for (i = 0; i < o.length; ++i) {
     seg.push(o[i]);
     ctype.push(this.ctype_(o[i]))
@@ -98,24 +98,24 @@ TinySegmenter.prototype.segment = function(input) {
   ctype.push("O");
   ctype.push("O");
   ctype.push("O");
-  var word = seg[3];
-  var p1 = "U";
-  var p2 = "U";
-  var p3 = "U";
-  for (var i = 4; i < seg.length - 3; ++i) {
-    var score = this.BIAS__;
-    var w1 = seg[i-3];
-    var w2 = seg[i-2];
-    var w3 = seg[i-1];
-    var w4 = seg[i];
-    var w5 = seg[i+1];
-    var w6 = seg[i+2];
-    var c1 = ctype[i-3];
-    var c2 = ctype[i-2];
-    var c3 = ctype[i-1];
-    var c4 = ctype[i];
-    var c5 = ctype[i+1];
-    var c6 = ctype[i+2];
+  let word = seg[3];
+  let p1 = "U";
+  let p2 = "U";
+  let p3 = "U";
+  for (let i = 4; i < seg.length - 3; ++i) {
+    let score = this.BIAS__;
+    const w1 = seg[i-3];
+    const w2 = seg[i-2];
+    const w3 = seg[i-1];
+    const w4 = seg[i];
+    const w5 = seg[i+1];
+    const w6 = seg[i+2];
+    const c1 = ctype[i-3];
+    const c2 = ctype[i-2];
+    const c3 = ctype[i-1];
+    const c4 = ctype[i];
+    const c5 = ctype[i+1];
+    const c6 = ctype[i+2];
     score += this.ts_(this.UP1__[p1]);
     score += this.ts_(this.UP2__[p2]);
     score += this.ts_(this.UP3__[p3]);
@@ -159,7 +159,7 @@ TinySegmenter.prototype.segment = function(input) {
     score += this.ts_(this.TQ2__[p2 + c2 + c3 + c4]);
     score += this.ts_(this.TQ3__[p3 + c1 + c2 + c3]);
     score += this.ts_(this.TQ4__[p3 + c2 + c3 + c4]);
-    var p = "O";
+    let p = "O";
     if (score > 0) {
       result.push(word);
       word = "";
